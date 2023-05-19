@@ -72,4 +72,3 @@ class Game:
     def ai_move(self, board):
         self.board = board
         self.change_turn()
-        
