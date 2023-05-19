@@ -38,29 +38,3 @@ def alpha_beta(position, depth, alpha, beta, maximizing_player, game):
                 break
             best_move = move
         return value, best_move
-
-
-def choose_best_move(board, depth, maximizing_player):
-    possible_moves = board.get_possible_moves(2 if maximizing_player else 1)
-    best_move = None
-    if maximizing_player:
-        max_eval = float('-inf')
-        for move in possible_moves:
-            if board.is_valid_move(move):
-                new_board = copy.deepcopy(board)
-                new_board.apply_move(move, 2)
-                eval, _ = alpha_beta(new_board, depth - 1, float('-inf'), float('inf'), False, None)
-                if eval > max_eval:
-                    max_eval = eval
-                    best_move = move
-    else:
-        min_eval = float('inf')
-        for move in possible_moves:
-            if board.is_valid_move(move):
-                new_board = copy.deepcopy(board)
-                new_board.apply_move(move, 1)
-                eval, _ = alpha_beta(new_board, depth - 1, float('-inf'), float('inf'), True, None)
-                if eval < min_eval:
-                    min_eval = eval
-                    best_move = move
-    return best_move
