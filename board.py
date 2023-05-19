@@ -30,7 +30,6 @@ class Board:
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
-
         if row == ROWS - 1 or row == 0:
             piece.make_king()
             if piece.color == WHITE:
@@ -42,18 +41,39 @@ class Board:
         return self.board[row][col]
 
     def create_board(self):
-        for row in range(ROWS):
+        for i in range(ROWS):
+            # interior list for each row
             self.board.append([])
-            for col in range(COLS):
-                if col % 2 == ((row + 1) % 2):
-                    if row < 3:
-                        self.board[row].append(Piece(row, col, WHITE))
-                    elif row > 4:
-                        self.board[row].append(Piece(row, col, RED))
+            for j in range(COLS):
+                # we can drop white or red
+                # for example at row = 0, col = 0 , row = 1 not equal
+                # row = 1 , col = 1 hisawo b3d fhn7ot cube
+                if j % 2 == (i + 1) % 2:
+                    if i < 3:
+                        self.board[i].append(Piece(i, j, WHITE))
+                    elif i > 4:
+                        # m3na keda 2n da fare3 tany khlas f h7ot pieces bta3to
+                        self.board[i].append(Piece(i, j, RED))
                     else:
-                        self.board[row].append(0)
+                        # wala keda wala keda m3na keda 2ne da morb3 alhsebo fady baa
+                        self.board[i].append(0)
                 else:
-                    self.board[row].append(0)
+                    ## da morb3 alhsebo fadyy
+                    self.board[i].append(0)
+
+    #def create_board(self):
+     #   for row in range(ROWS):
+      #      self.board.append([])
+       #     for col in range(COLS):
+        #        if col % 2 == ((row + 1) % 2):
+         #           if row < 3:
+         #               self.board[row].append(Piece(row, col, WHITE))
+           #         elif row > 4:
+          #              self.board[row].append(Piece(row, col, RED))
+            #        else:
+             #           self.board[row].append(0)
+              #  else:
+               #     self.board[row].append(0)
 
     def draw(self, win):
         self.draw_squares(win)
@@ -92,7 +112,6 @@ class Board:
         if piece.color == WHITE or piece.king:
             moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, left))
             moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, right))
-
         return moves
 
     def _traverse_left(self, start, stop, step, color, left, skipped=[]):
