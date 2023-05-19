@@ -23,16 +23,18 @@ class Piece:
         self.king = True
 
     def draw(self, win):
-        radius = SQUARE_SIZE // 2 - self.PADDING
-        pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
-        pygame.draw.circle(win, self.color, (self.x, self.y), radius)
-        if self.king:
-            win.blit(CROWN, (self.x - CROWN.get_width() // 2, self.y - CROWN.get_height() // 2))
+            raduis = SQUARE_SIZE // 2 - (self.PADDING)
+            pygame.draw.circle(win, GREY, (self.x, self.y), raduis + self.OUTLINE)
+            pygame.draw.circle(win, self.color, (self.x, self.y), raduis)
+            if self.king:
+                # to make the image in the centre
+                win.blit(CROWN, (self.x - CROWN.get_width() // 2, self.y - CROWN.get_height() // 2))
+
+    def _repr_(self):
+            return str(self.color)
 
     def move(self, row, col):
-        self.row = row
-        self.col = col
-        self.calc_pos()
+            self.row = row  # new row
+            self.col = col  # new col
+            self.calc_pos()  # tell the position of x , y godad
 
-    def __repr__(self):
-        return str(self.color)
