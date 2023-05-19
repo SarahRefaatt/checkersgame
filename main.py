@@ -4,30 +4,16 @@ from game import Game
 from minimax import minimax
 import random
 from alpha_beta import alpha_beta
-
-
 import time
-
 FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
 
 
-
-
 def get_row_col_random():
     row = random.randint(0, 7)
     col = random.randint(0, 7)
-    return row, col
-
-
-
-
-def get_row_col_from_mouse(pos):
-    x, y = pos
-    row = y // SQUARE_SIZE
-    col = x // SQUARE_SIZE
     return row, col
 
 
@@ -67,12 +53,7 @@ def main(choice,level):
             game.select(row, col)
 
 
-        row, col = get_row_col_random()
-        game.select(row, col)
+
         game.update()
-        #time.sleep(5)
 
     pygame.quit()
-
-
-#main(1)
