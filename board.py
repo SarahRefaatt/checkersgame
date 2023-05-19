@@ -55,12 +55,15 @@ class Board:
                 else:
                     self.board[row].append(0)
 
-    def draw(self, win):
+    def draw(self,win):
+        # rhis function to draw a piece on the window
         self.draw_squares(win)
-        for row in range(ROWS):
-            for col in range(COLS):
-                piece = self.board[row][col]
-                if piece != 0:
+        for i in range(ROWS):
+            for j in range(COLS):
+                # fe piece de hib2a feha y zero  yrkm white y rkm red
+                piece = self.board[i][j]
+                if piece !=0:
+                    #m3na keda 2n gwaha haga fhrsmha 3ala window
                     piece.draw(win)
 
     def remove(self, pieces):
