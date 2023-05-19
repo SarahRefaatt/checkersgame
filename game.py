@@ -54,8 +54,8 @@ class Game:
         return True
 
     def draw_valid_moves(self, moves):
-        for move in moves:
-            row, col = move
+        for i in moves:
+            row, col = i
             pygame.draw.circle(self.win, BLUE,
                                (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), 15)
 
