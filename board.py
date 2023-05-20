@@ -97,8 +97,10 @@ class Board:
         row = piece.row
 
         if piece.color == RED or piece.king:
+            #3shaan el red byb2aa mn fo2 le taht fa 3shaan kdaa row -1 ka start w row-3 ka end wel 3aks fel white
             moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, left))
             moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, right))
+            
         if piece.color == WHITE or piece.king:
             moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, left))
             moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, right))
@@ -107,29 +109,29 @@ class Board:
 
     def _traverse_left(self, start, stop, step, color, left, skipped=[]):
         moves = {}
-        last = []
-        for r in range(start, stop, step):
-            if left < 0:
+        last = [] #gwahaa el last piece
+        for r in range(start, stop, step): row,row ,directiom
+            if left < 0:##bafdal a3ml left - ama fel right +1
                 break
 
             current = self.board[r][left]
             if current == 0:
-                if skipped and not last:
+                if skipped and not last:#lw fe list of skipped w fnfs el wa2t el last piece ana fehaa fadyaa
                     break
-                elif skipped:
+                elif skipped:#lw fee haga hyt3mlhaa skip sa3thaa ha3ml move w hatb2aa skip +last 3shaan awsl lel makan gded
                     moves[(r, left)] = last + skipped
                 else:
-                    moves[(r, left)] = last
+                    moves[(r, left)] = last#hafdal zay manaa
 
                 if last:
-                    if step == -1:
-                        row = max(r - 3, 0)
+                    if step == -1:#direction bel -ve sa3thaa ha3ml operation bel -
+                        row = max(r - 3, 0)#3shaan bashtaghl 3ala 3 rows mn 3andy mn awl 0 le 3
                     else:
-                        row = min(r + 3, ROWS)
-                    moves.update(self._traverse_left(r + step, row, step, color, left - 1, skipped=last))
+                        row = min(r + 3, ROWS)#mn awl 8 le taht be 3
+                    moves.update(self._traverse_left(r + step, row, step, color, left - 1, skipped=last))#el skipped homaa hyb2oo el last le2ny haba2a already 3adethoom
                     moves.update(self._traverse_right(r + step, row, step, color, left + 1, skipped=last))
                 break
-            elif current.color == color:
+            elif current.color == color:##da ma3naa enyy maynf3sh athark 3lehaa aw lehhaa fa kdaa ha break w ashoof el ba3doo
                 break
             else:
                 last = [current]
@@ -142,7 +144,7 @@ class Board:
         moves = {}
         last = []
         for r in range(start, stop, step):
-            if right >= COLS:
+            if right >= COLS:#akher el columns
                 break
 
             current = self.board[r][right]
